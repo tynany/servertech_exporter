@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	listenAddress = kingpin.Flag("web.listen-address", "Address on which to expose metrics and web interface.").Default(":9778").String()
+	listenAddress = kingpin.Flag("web.listen-address", "Address on which to expose metrics and web interface.").Default(":9783").String()
 	telemetryPath = kingpin.Flag("web.telemetry-path", "Path under which to expose metrics.").Default("/metrics").String()
 	httpOnly      = kingpin.Flag("web.http", "Run in HTTP mode.").Default("False").Bool()
 	sslCrt        = kingpin.Flag("web.certificate", "Path to SSL certificate.").String()

@@ -2,7 +2,7 @@
 A Prometheus exporter that collects metrics from ServerTech PDUs using the ServerTech JAWS API.
 
 ## Getting Started
-Start servertech_exporter with valid flags. To then collect the metrics of a PDU, pass the 'target', 'user' and 'pass' parameter to the exporter's web interface. For example, http://exporter:9778/metrics?target=192.168.77.9&user=admn&pass=admn. By default, servertech_exporter runs in HTTPS mode and a valid certificate and key need to be passed using the `--web.certificate` and `--web.key` flags.
+Start servertech_exporter with valid flags. To then collect the metrics of a PDU, pass the 'target', 'user' and 'pass' parameter to the exporter's web interface. For example, http://exporter:9783/metrics?target=192.168.77.9&user=admn&pass=admn. By default, servertech_exporter runs in HTTPS mode and a valid certificate and key need to be passed using the `--web.certificate` and `--web.key` flags.
 
 To run servertech_exporter:
 ```
@@ -26,7 +26,7 @@ Flags:
       --collector.phases    Enable the phases collector (default: enabled).
       --collector.system    Enable the system collector (default: enabled).
       --collector.units     Enable the units collector (default: enabled).
-      --web.listen-address=":9778"
+      --web.listen-address=":9783"
                             Address on which to expose metrics and web interface.
       --web.telemetry-path="/metrics"
                             Path under which to expose metrics.
@@ -54,12 +54,12 @@ scrape_configs:
       - source_labels: [__address__]
         target_label: __param_target
       - target_label: __address__
-        replacement: localhost:9778  # In this example, localhost is running servertech_exporter
+        replacement: localhost:9783  # In this example, localhost is running servertech_exporter
 ```
 
 Docker:
 ```
-docker run --restart unless-stopped -d -p 9778:9778 -v /path/to/server.crt:/server/crt -v /path/to/server.key:/server.key tynany/servertech_exporter
+docker run --restart unless-stopped -d -p 9783:9783 -v /path/to/server.crt:/server/crt -v /path/to/server.key:/server.key tynany/servertech_exporter
 ```
 The Docker containers expects the SSL certificate be located at /server.crt and the key be located at /server.key.
 
