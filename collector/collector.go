@@ -143,24 +143,24 @@ func getServerTechJSON(target, user, pass, path string) ([]byte, error) {
 
 	req, err := http.NewRequest("GET", fmt.Sprintf("https://%s/jaws/monitor/%s", target, path), nil)
 	if err != nil {
-		return nil, nil
+		return nil, fmt.Errorf("failed to create http request: %v", err)
 	}
 	basicAuth := base64.StdEncoding.EncodeToString([]byte(user + ":" + pass))
 	req.Header.Add("Authorization", "Basic "+basicAuth)
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, nil
+		return nil, fmt.Errorf("failed to perform http request: %v", err)
 	}
 
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("incorrect status code receiveved from device: %d", resp.StatusCode)
+		return nil, fmt.Errorf("incorrect status code received from device: %d", resp.StatusCode)
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, nil
+		return nil, fmt.Errorf("failed to read body of request from device: %v", err)
 	}
 
 	return body, nil
