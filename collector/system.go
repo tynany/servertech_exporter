@@ -75,6 +75,11 @@ func processSystemStats(ch chan<- prometheus.Metric, jsonSystemSum []byte) error
 		return fmt.Errorf("could not compile uptime regex: %v", err)
 	}
 	reUptime := r.FindStringSubmatch(data.Uptime)
+
+	if len(reUptime) < 4 {
+		return fmt.Errorf("uptime data was not in expected format: %v", data.Uptime)
+	}
+
 	uptimeDays, err := strconv.Atoi(reUptime[1])
 	if err != nil {
 		return fmt.Errorf("could not convert uptime day to int: %v", err)
